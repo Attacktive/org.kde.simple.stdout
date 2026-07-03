@@ -36,7 +36,8 @@ PlasmoidItem {
         triggeredOnStart: true
         onTriggered: {
             if (root.p_command) {
-                cmdSource.connectSource("bash -c '" + root.p_command + "'");
+                const escapedCommand = root.p_command.replace(/'/g, "'\\''");
+                cmdSource.connectSource(`bash -c '${escapedCommand}'`);
             }
         }
     }
