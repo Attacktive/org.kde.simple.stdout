@@ -17,7 +17,8 @@ PlasmoidItem {
 
     function runCommand() {
         if (p_command) {
-            cmdSource.connectSource(`bash -c '${p_command}'`);
+            const escapedCommand = p_command.replace(/'/g, "'\\''");
+            cmdSource.connectSource(`bash -c '${escapedCommand}'`);
         }
     }
 
