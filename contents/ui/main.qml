@@ -60,9 +60,12 @@ PlasmoidItem {
             text: root.stdoutOutput
 
             font.pixelSize: root.height * 0.45
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 6
             lineHeight: 0.85
 
             Layout.fillWidth: true
+            Layout.fillHeight: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 
