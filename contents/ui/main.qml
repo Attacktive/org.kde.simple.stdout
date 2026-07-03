@@ -15,6 +15,12 @@ PlasmoidItem {
 
     property string stdoutOutput: ""
 
+    function runCommand() {
+        if (p_command) {
+            cmdSource.connectSource(`bash -c '${p_command}'`);
+        }
+    }
+
     implicitWidth: mainLayout.implicitWidth
     Layout.preferredWidth: implicitWidth
     onImplicitWidthChanged: plasmoid.preferredRepresentationWidth = implicitWidth
@@ -34,11 +40,13 @@ PlasmoidItem {
         running: true
         repeat: true
         triggeredOnStart: true
-        onTriggered: {
-            if (root.p_command) {
-                cmdSource.connectSource("bash -c '" + root.p_command + "'");
-            }
-        }
+        onTriggered: root.runCommand()
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.runCommand()
     }
 
     RowLayout {
