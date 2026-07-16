@@ -11,11 +11,13 @@ KCM.SimpleKCM {
     property alias cfg_updateInterval: intervalSpin.value
     property alias cfg_showIcon: showIconCheck.checked
     property alias cfg_iconName: iconNameField.text
+    property string cfg_textAlignment
 
     property string cfg_commandDefault: "echo -e \"Seconds:\\n$(date +%S)\""
     property int cfg_updateIntervalDefault: 1
     property bool cfg_showIconDefault: true
     property string cfg_iconNameDefault: "utilities-terminal-symbolic"
+    property string cfg_textAlignmentDefault: "center"
 
     property bool cfg_expanding: false
     property int cfg_length: 0
@@ -51,6 +53,27 @@ KCM.SimpleKCM {
             Layout.fillWidth: true
             placeholderText: i18n("Example: utilities-terminal-symbolic")
             enabled: showIconCheck.checked
+        }
+
+        QtControls.ComboBox {
+            id: textAlignmentCombo
+            Kirigami.FormData.label: i18n("Text alignment:")
+            model: [
+                { text: i18n("Left"), value: "left" },
+                { text: i18n("Center"), value: "center" },
+                { text: i18n("Right"), value: "right" }
+            ]
+            textRole: "text"
+            valueRole: "value"
+            onActivated: cfg_textAlignment = currentValue
+
+            Binding on currentIndex {
+                value: {
+                    const idx = textAlignmentCombo.indexOfValue(cfg_textAlignment);
+                    return idx >= 0 ? idx : textAlignmentCombo.indexOfValue("center");
+                }
+                restoreMode: Binding.RestoreBindingOrValue
+            }
         }
     }
 }

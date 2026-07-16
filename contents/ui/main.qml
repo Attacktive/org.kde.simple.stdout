@@ -12,6 +12,16 @@ PlasmoidItem {
     readonly property int p_updateInterval: plasmoid.configuration.updateInterval || 2
     readonly property bool p_showIcon: plasmoid.configuration.showIcon
     readonly property string p_iconName: plasmoid.configuration.iconName || "utilities-terminal-symbolic"
+    readonly property int p_textAlignment: {
+        switch (plasmoid.configuration.textAlignment) {
+        case "left":
+            return Text.AlignLeft;
+        case "right":
+            return Text.AlignRight;
+        default:
+            return Text.AlignHCenter;
+        }
+    }
 
     property string stdoutOutput: ""
 
@@ -75,7 +85,7 @@ PlasmoidItem {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: root.p_textAlignment
             verticalAlignment: Text.AlignVCenter
 
             wrapMode: Text.NoWrap
