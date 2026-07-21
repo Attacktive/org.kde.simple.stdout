@@ -69,9 +69,15 @@ KCM.SimpleKCM {
 
             Binding on currentIndex {
                 value: {
+                    // count is read here so this re-evaluates once Kirigami.FormLayout finishes populating the model, which isn't ready on first evaluation.
+                    if (textAlignmentCombo.count === 0) {
+                        return -1;
+                    }
+
                     const idx = textAlignmentCombo.indexOfValue(cfg_textAlignment);
                     return idx >= 0 ? idx : textAlignmentCombo.indexOfValue("center");
                 }
+
                 restoreMode: Binding.RestoreBindingOrValue
             }
         }
