@@ -75,7 +75,11 @@ KCM.SimpleKCM {
                     }
 
                     const idx = textAlignmentCombo.indexOfValue(cfg_textAlignment);
-                    return idx >= 0 ? idx : textAlignmentCombo.indexOfValue("center");
+                    if (idx >= 0) {
+                        return idx;
+                    }
+
+                    return textAlignmentCombo.indexOfValue("center");
                 }
 
                 restoreMode: Binding.RestoreBindingOrValue
